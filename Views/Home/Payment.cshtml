@@ -1,0 +1,81 @@
+﻿@model IEnumerable<WebPaymentFineros.Models.Payment>
+
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebPaymentFineros.Models.ManagerDB d = new WebPaymentFineros.Models.ManagerDB();
+
+    List<WebPaymentFineros.Models.Customer> customers = new List<WebPaymentFineros.Models.Customer>();
+    customers = d.GetCustomer();
+
+}
+
+<h2>Payment</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Surname
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CCNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CCDate)
+            </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.CVV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => (customers.Where(x => x.CustomerId == item.CustomerId).FirstOrDefault().FirstName))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => (customers.Where(x => x.CustomerId == item.CustomerId).FirstOrDefault().LastName))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CCNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CCDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CVV)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price) $
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentDate) 
+                </td>
+
+
+
+                @*<td>
+            <a style="cursor:pointer;" asp-action="Edit" asp-route-id="@item.SubjectID">İncele</a>
+        </td>*@
+            </tr>
+
+        }
+</table>

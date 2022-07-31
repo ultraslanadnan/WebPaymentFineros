@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebPaymentFineros</name>
+    </assembly>
+    <members>
+        <member name="M:WebPaymentFineros.Controllers.CustomerController.Get">
+            <summary>
+            Get All Customers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebPaymentFineros.Controllers.CustomerController.Get(System.Int32)">
+            <summary>
+            Get Customer By Id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebPaymentFineros.Controllers.CustomerController.Create(WebPaymentFineros.Models.Customer)">
+            <summary>
+            Create New Customer 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebPaymentFineros.Controllers.PaymentController.Get">
+            <summary>
+            Get All Payments of Customers 
+            </summary>
+            <returns></returns>
+            
+        </member>
+        <member name="M:WebPaymentFineros.Controllers.PaymentController.Get(System.Int32)">
+            <summary>
+            Get  Payment By PaymentId 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebPaymentFineros.Controllers.PaymentController.GetPaymentsByCCNumber(System.String)">
+            <summary>
+            Get All Payments of CC Number 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebPaymentFineros.Controllers.PaymentController.GetPaymentsByCustomerId(System.Int32)">
+            <summary>
+            Get All Payments of CustomerId 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebPaymentFineros.Controllers.PaymentController.Create(WebPaymentFineros.Models.Payment)">
+            <summary>
+            Create New Payment 
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

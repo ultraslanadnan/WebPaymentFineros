@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "Payment CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebPaymentFineros.Models.ManagerDB d = new WebPaymentFineros.Models.ManagerDB();
+
+    WebPaymentFineros.Models.MyProduct singleProduct = new WebPaymentFineros.Models.MyProduct();
+    var productId = ViewContext.RouteData.Values["id"];
+    singleProduct = d.GetProductById(Convert.ToInt32(productId));
+}
+
+<h2>Payment CheckOut</h2>
+<form id="paymentForm" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+
+                @singleProduct.ProductName
+            </div>
+            <div class="col-lg-6">
+                @singleProduct.Price $
+                <input type="hidden" id="productId" name="hidProductId" value="@singleProduct.ProductId">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <input id="txtCCNameSurname" class="form-control" type="email" style="max-width: 100%; width: 100%;" name="txtCCNameSurname" maxlength="100" value="" placeholder="CC Name Surname" />
+
+            </div>
+            <div class="col-lg-6">
+                <input id="txtCCNumber" class="form-control" type="text" style="max-width: 100%; width: 100%;" name="txtCCNumber" maxlength="16" value="" placeholder="CC Number" />
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <select class="form-control" name="selM" id="selM">
+                        <option>Select monthh</option>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <select class="form-control" name="selY" id="selY">
+                        <option>Select year</option>
+                        <option>2022</option>
+                        <option>2023</option>
+                        <option>2024</option>
+                        <option>2025</option>
+                        <option>2026</option>
+                        <option>2027</option>
+                        <option>2028</option>
+                        <option>2029</option>
+                        <option>2030</option>
+                        <option>2031</option>
+                        <option>2032</option>
+                        <option>2033</option>
+                        <option>2034</option>
+                    </select>
+                </div>
+
+
+            </div>
+
+
+            <div class="col-lg-4">
+                <input id="txtCVV" class="form-control" type="text" style="max-width: 100%; width: 100%;" name="txtCVV" maxlength="3" value="" placeholder="CVV" />
+
+            </div>
+
+        </div>
+
+
+
+        <div class="row" style="margin-top:30px; width:100%;">
+            <div class="col-lg-6" style="width:50%; float:left;">
+                <input id="btnPayment" type="submit" class="btn btn-danger" style="max-width:100%; width:100%; height:40px;" name="paylas" value="Buy" />
+
+            </div>
+
+        </div>
+
+
+    </div>
+  
+
+    <script type="text/javascript">
+       
+        document.getElementById('btnPayment').onclick = evt => {
+            evt.preventDefault();
+            /*  console.log($('#txtEmail')[0].value);*/
+            var required = '';
+            var validation = '';
+            var result = '';
+            if ($('#txtCCNameSurname')[0].value == '') {
+                required += 'CC Name Surname is required;';
+            }
+            if ($('#txtCCNumber')[0].value == '') {
+                required += 'CC Number is required;';
+            }
+            if ($('#selM')[0].selectedIndex == 0) {
+                required += 'CC month required;';
+            }
+            if ($('#selY')[0].selectedIndex == 0) {
+                required += 'CC year required;';
+            }
+            if ($('#txtCVV')[0].value == '') {
+                required += 'CVV is required;';
+            }
+            var regexNumber = /^[0-9]{16}$/;
+            var regexCVV = /^[0-9]{3}$/;
+          
+            if ($('#txtCVV')[0].value.length>0) {
+                if (!regexCVV.test($('#txtCVV')[0].value)) {
+                    validation += 'You have entered an invalid CVV Number;';
+                }
+            }
+            if ($('#txtCCNumber')[0].value.length > 0) {
+                if (!regexNumber.test($('#txtCCNumber')[0].value)) {
+                    validation += 'You have entered an invalid CC Number;';
+                }
+            }
+           
+            result = required.toString() + validation.toString();
+            if (result.length > 0) {
+                alert(result);
+                return;
+            }
+
+            $.ajax({
+                url: "/PaymentCheckOut/Create",
+                data: $('#paymentForm').serialize(),
+                type: 'POST',
+
+                success: function (data) {
+                    if (data == 'success') {
+                        window.location.href = "/Home/Payment";
+                    }
+                    else {
+                        alert(data);
+                    }
+
+                },
+                error: function (err) {
+                    alert(err);
+                }
+
+            });
+        }
+
+  
+
+    </script>
+</form>
+

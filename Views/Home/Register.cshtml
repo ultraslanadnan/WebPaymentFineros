@@ -1,0 +1,120 @@
+﻿@*@model IEnumerable<WebPaymentFineros.Models.Customer>*@
+@{
+    ViewBag.Title = "Customer Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customer register</h2>
+<form id="registerForm" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <input id="txtEmail" class="form-control" type="text" style="max-width: 100%; width: 100%;" name="txtEmail" value="" placeholder="Email" />
+
+            </div>
+            <div class="col-lg-3">
+                <input id="txtName" class="form-control" type="text" style="max-width: 100%; width: 100%;" name="txtName" value="" placeholder="Name" />
+
+            </div>
+            <div class="col-lg-3">
+                <input id="txtSurname" class="form-control" type="text" style="max-width: 100%; width: 100%;" name="txtSurname" value="" placeholder="Surname" />
+
+            </div>
+            <div class="col-lg-3">
+                <input id="txtPassword" class="form-control" type="password" style="max-width: 100%; width: 100%;" name="txtPassword" value="" placeholder="Password" />
+
+            </div>
+            <div class="col-lg-3">
+                <input id="txtPhone" class="form-control" type="text" style="max-width: 100%; width: 100%;" name="txtPhone" value="" placeholder="Phone(xxx xxx xxxx)" />
+
+            </div>
+            <div class="col-lg-3">
+                <input id="txtAge" class="form-control" type="number" style="max-width: 100%; width: 100%;" name="txtAge" value="" placeholder="Age" />
+
+            </div>
+
+        </div>
+
+
+        <div class="row" style="margin-top:30px; width:100%;">
+            <div class="col-lg-6" style="width:50%;">
+                <input id="btnRegister" type="submit" class="btn btn-danger" style="max-width:100%; width:100%; height:40px;" name="register" value="Register" />
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btnRegister').onclick = evt => {
+            evt.preventDefault();
+            var required = '';
+            var validation = '';
+            if ($('#txtEmail')[0].value == '') {
+                alert('Email is required');
+                required += 'Email is required;';
+            }
+            if ($('#txtPassword')[0].value == '') {
+                required += 'Password is required;';
+            }
+            if ($('#txtName')[0].value == '') {
+                required += 'Name is required;';
+            }
+            if ($('#txtSurname')[0].value == '') {
+                required += 'Surname is required;';
+            }
+            if ($('#txtPhone')[0].value == '') {
+                required += 'Phone is required;';
+            }
+            if ($('#txtAge')[0].value == '') {
+                required += 'Age is required;';
+            }
+            var regexAge = /^[0-9]{1,2}$/;
+            if ($('#txtAge')[0].value.length>0) {
+                if (!regexAge.test($('#txtAge')[0].value)) {
+                    validation += 'You have entered an invalid age;';
+                }
+                else if ($('#txtAge')[0].value == "0") {
+                    validation += 'You must entered greather then 0 age;';
+                }
+            }
+         
+            var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            var expPhone = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
+            if ($('#txtEmail')[0].value.length > 0) {
+                if (!expr.test($('#txtEmail')[0].value)) {
+                    validation += 'You have entered an invalid email address;';
+                }
+            }
+           
+            if ($('#txtPhone')[0].value.length>0) {
+                if (!expPhone.test($('#txtPhone')[0].value)) {
+                    validation += 'You have entered an invalid phone;';
+                }
+            }
+           
+            result = required.toString() + validation.toString();
+            if (result.length > 0) {
+                alert(result);
+                return;
+            }
+            $.ajax({
+                url: "/Register/Create",
+                data: $('#registerForm').serialize(),
+                type: 'POST',
+
+                success: function (data) {
+                    if (data == 'success') {
+                        window.location.href = "/Home/Login";
+                    }
+                    else {
+                        alert(data);
+                    }
+                },
+                error: function (err) {
+                    alert(err);
+                }
+
+            });
+        }
+    </script>
+</form>
+

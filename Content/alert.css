@@ -1,0 +1,13 @@
+﻿.divAlertBack { display: none; position: fixed; top: 25%; left: 25%; z-index: 100000; width: 50%; height: 50%; background-color: #000000; opacity: 0.7; }
+.divAlertCerceve { display: none; position: fixed; top: 25%; left:25%; z-index: 100001; width: 50%; height: 50%;  background-color: #232323; opacity: 1; color: #ffffff; }
+.divAlertCerceveIc { font-family: Arial; position: relative; left: 10%; width: 100%;  padding: 10px; }
+.divAlertCerceveIc span { font-size: 26px; height: 50px; display: block; }
+.divAlertCerceveIc p { font-size: 16px; min-height: 50px; }
+.divAlertCerceveIc input { float: right; border: solid 2px #ffffff; padding: 5px 15px; background-color: #232323; margin: 2px; color: #ffffff; font-family: Arial; font-size: 12px; cursor: pointer; }
+.divAlertCerceveIc input:hover { background-color: #0050ef; }
+@media screen and (max-width:1050px) { .divAlertCerceveIc { position: relative; left: 10%; width: 80%; margin-left: 0px; padding: 10px; } }
+
+  .divNoticeOk { display: none; z-index: 100002; position: fixed; right: 30px; bottom: 25px; padding: 15px 30px; max-width: 300px; background-color: #59bda5; box-shadow: 0 0 30px rgba(0,0,0,.2); color: #fff; font-family: Arial; }
+    .divAlertFix { display: none; z-index: 100002; position: fixed; right: 30px; min-height:30px; min-width:20px; bottom: 25px;   max-width: 700px; background-color: #D22B2B; box-shadow: 0 0 30px rgba(0,0,0,.2); color: #fff; font-family: Arial; }
+    .borderLine{display: block; border-bottom:1px solid silver; margin-bottom:0px !important; padding-right:30px; padding-left:30px; padding-bottom:15px; padding-top:15px;}
+    .borderNoLine{display: block; margin-bottom:0px !important; padding-right:30px; padding-left:30px; padding-top:15px; padding-bottom:15px; } 
